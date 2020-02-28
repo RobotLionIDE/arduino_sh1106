@@ -216,3 +216,7 @@ int mgos_sh1106_get_cursor_y(Adafruit_SH1106 *ssd) {
   if (ssd == nullptr) return 0;
   return ssd->getCursorY();
 }
+
+bool mgos_arduino_sh1106_init(void){
+    return true;
+}

@@ -21,6 +21,8 @@
 class Adafruit_SH1106;
 class TwoWire;
 
+bool mgos_arduino_sh1106_init(void);
+
 /*
  * Create and return an Adafruit_SH1106 instance for I2C.
  * - w   - display width
