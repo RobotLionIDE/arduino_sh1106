@@ -7,8 +7,8 @@
 
 #include "Adafruit_SH1106.h"
 
-Adafruit_SH1106 *mgos_sh1106_create_i2c(int w, int h, TwoWire& i2c) {
-  return new Adafruit_SH1106(w, h, i2c);
+Adafruit_SH1106 *mgos_sh1106_create_i2c(int w, int h) {
+  return new Adafruit_SH1106(w, h);
 }
 
 void mgos_sh1106_close(Adafruit_SH1106 *ssd) {

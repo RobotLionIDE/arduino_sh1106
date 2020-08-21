@@ -29,7 +29,7 @@ bool mgos_arduino_sh1106_init(void);
  * - h   - display height
  * - i2c - i2c channel
  */
-Adafruit_SH1106 *mgos_sh1106_create_i2c(int w, int h, TwoWire& i2c);
+Adafruit_SH1106 *mgos_sh1106_create_i2c(int w, int h);
 
 /*
  * Close Adafruit_SH1106 indstance.

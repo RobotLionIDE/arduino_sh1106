@@ -110,7 +110,7 @@ class TwoWire;
 class Adafruit_SH1106 : public Adafruit_GFX 
 {
 public:
-  Adafruit_SH1106(uint8_t w, uint8_t h, TwoWire& i2c);
+  Adafruit_SH1106(uint8_t w, uint8_t h);
 
   void begin(uint8_t vccstate = SH1106_SWITCHCAPVCC, uint8_t i2caddr = SH1106_I2C_ADDRESS);
 

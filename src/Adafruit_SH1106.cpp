@@ -175,10 +175,12 @@ Adafruit_GFX(SH1106_LCDWIDTH, SH1106_LCDHEIGHT) {
   rst = reset;
 }*/
 
-Adafruit_SH1106::Adafruit_SH1106(uint8_t w, uint8_t h, TwoWire& i2c)
-     : Adafruit_GFX(w, h)
-     , _wire(&i2c)
-{
+
+
+extern TwoWire Wire;
+
+Adafruit_SH1106::Adafruit_SH1106(uint8_t w, uint8_t h): Adafruit_GFX(w, h){
+  _wire=&Wire;
 }
 
 void Adafruit_SH1106::begin(uint8_t vccstate, uint8_t i2caddr) 
@@ -282,7 +284,7 @@ void Adafruit_SH1106::begin(uint8_t vccstate, uint8_t i2caddr)
     SH1106_command(0x3F);
     SH1106_command(SH1106_SETDISPLAYOFFSET);              // 0xD3
     SH1106_command(0x00);                                   // no offset
-	
+    
     SH1106_command(SH1106_SETSTARTLINE | 0x0);            // line #0 0x40
     SH1106_command(SH1106_CHARGEPUMP);                    // 0x8D
     if (vccstate == SH1106_EXTERNALVCC) 
@@ -331,7 +333,7 @@ void Adafruit_SH1106::begin(uint8_t vccstate, uint8_t i2caddr)
     SH1106_command(SH1106_SEGREMAP | 0x1);
     SH1106_command(SH1106_COMSCANDEC);
     SH1106_command(SH1106_SETCOMPINS);                    // 0xDA
-    SH1106_command(0x2);	//ada x12
+    SH1106_command(0x2);    //ada x12
     SH1106_command(SH1106_SETCONTRAST);                   // 0x81
     if (vccstate == SH1106_EXTERNALVCC) 
       { SH1106_command(0x10); }
@@ -510,62 +512,62 @@ void Adafruit_SH1106::SH1106_data(uint8_t c) {
 */
 
 void Adafruit_SH1106::display(void) {
-	
+    
   SH1106_command(SH1106_SETLOWCOLUMN | 0x0);  // low col = 0
   SH1106_command(SH1106_SETHIGHCOLUMN | 0x0);  // hi col = 0
   SH1106_command(SH1106_SETSTARTLINE | 0x0); // line #0
-	
+    
   //Serial.println(TWBR, DEC);
   //Serial.println(TWSR & 0x3, DEC);
 
   // I2C
   //height >>= 3;
   //width >>= 3;
-	
+    
   byte height=64;
-	byte width=132; 
-	byte m_row = 0;
-	byte m_col = 2;
-	
-	height >>= 3;
-	width >>= 3;
-	//Serial.println(width);
-	
-	int p = 0;
-	
-	byte i, j, k =0;
-	
-	/*if(sid != -1)
-	{
-			
-		for ( i = 0; i < height; i++) {
-		
-		// send a bunch of data in one xmission
+    byte width=132; 
+    byte m_row = 0;
+    byte m_col = 2;
+    
+    height >>= 3;
+    width >>= 3;
+    //Serial.println(width);
+    
+    int p = 0;
+    
+    byte i, j, k =0;
+    
+    /*if(sid != -1)
+    {
+            
+        for ( i = 0; i < height; i++) {
+        
+        // send a bunch of data in one xmission
         SH1106_command(0xB0 + i + m_row);//set page address
         SH1106_command(m_col & 0xf);//set lower column address
         SH1106_command(0x10 | (m_col >> 4));//set higher column address
-		
+        
         for( j = 0; j < 8; j++){        
-			// SPI
-			*csport |= cspinmask;
-			*dcport |= dcpinmask;
-			*csport &= ~cspinmask;
-			
+            // SPI
+            *csport |= cspinmask;
+            *dcport |= dcpinmask;
+            *csport &= ~cspinmask;
+            
             for ( k = 0; k < width; k++, p++) {
-					fastSPIwrite(buffer[p]);
+                    fastSPIwrite(buffer[p]);
             }
             *csport |= cspinmask;
         }
-		}
-		
-	}
-	else
+        }
+        
+    }
+    else
   */
   {
     // save I2C bitrate
     //#ifndef __SAM3X8E__
-    //  		uint8_t twbrbackup = TWBR;
-    // 		TWBR = 12; // upgrade to 400KHz!
+    //          uint8_t twbrbackup = TWBR;
+    //         TWBR = 12; // upgrade to 400KHz!
     //#endif
     
     for ( i = 0; i < height; i++) {
@@ -586,12 +588,12 @@ void Adafruit_SH1106::display(void) {
               _wire->endTransmission();
           }
     }
-	
+    
     /*#ifndef __SAM3X8E__
           TWBR = twbrbackup;
     #endif
     */
-	}
+    }
 }
 
 /*void Adafruit_SH1106::display(void) {
@@ -636,14 +638,14 @@ void Adafruit_SH1106::display(void) {
     //Serial.println(TWSR & 0x3, DEC);
 
     // I2C
-	int k = 0;
+    int k = 0;
     for (uint16_t i=0; i<(SH1106_LCDWIDTH*SH1106_LCDHEIGHT/8); i++) {
       // send a bunch of data in one xmission
-	  if(k < 2)
-	  {
-		k++;
-		continue;
-	  }
+      if(k < 2)
+      {
+        k++;
+        continue;
+      }
       Wire.beginTransmission(_i2caddr);
       WIRE_WRITE(0x40);
       for (uint8_t x=0; x<16; x++) {
