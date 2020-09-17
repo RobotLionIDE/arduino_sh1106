@@ -1,5 +1,6 @@
 let Adafruit_SH1106 = {
-//    _ci2c: ffi('void *mgos_sh1106_create_i2c(int, int)'),
+    _ci2c: ffi('void *mgos_sh1106_create_i2c(int, int)'),
+    _begin: ffi('void *mgos_sh1106_begin(void *, int, int)'),
 
 
 create_i2c: function(h, w) {
@@ -32,8 +33,8 @@ create_i2c: function(h, w) {
     // ```javascript
     // mySH1106.begin(Adafruit_SH1106.EXTERNALVCC, 0x42, true);
     // ```
-    begin: function(vccst, addr, reset) {
-      return Adafruit_SH1106._begin(this.ssd, vccst, addr, reset);
+    begin: function(vccst, addr) {
+      return Adafruit_SH1106._begin(this.ssd, vccst, addr);
     },
 
     // ## **`mySH1106.SH1106_command(cmd)`**
