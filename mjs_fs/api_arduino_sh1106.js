@@ -7,6 +7,22 @@ let Adafruit_SH1106 = {
     _sc: ffi('void *mgos_sh1106_set_cursor(void *, int, int)'),
     _d: ffi('void *mgos_sh1106_display(void *)'),
     _w: ffi('int mgos_sh1106_write(void *, char *, int)'),
+    _stw: ffi('void mgos_sh1106_set_text_wrap(void *, int)'),
+    
+  RES_96_16: 0,
+  RES_128_32: 1,
+  RES_128_64: 2,
+
+  EXTERNALVCC: 1,
+  SWITCHCAPVCC: 2,
+
+  // ## **`Colors`**
+  // - `Adafruit_SSD1306.BLACK`
+  // - `Adafruit_SSD1306.WHITE`
+  // - `Adafruit_SSD1306.INVERSE`
+  BLACK: 0,
+  WHITE: 1,
+  INVERSE: 2,
 
 
 create_i2c: function(h, w) {
