@@ -1,6 +1,12 @@
 let Adafruit_SH1106 = {
     _ci2c: ffi('void *mgos_sh1106_create_i2c(int, int)'),
     _begin: ffi('void *mgos_sh1106_begin(void *, int, int)'),
+    _cd: ffi('void *mgos_sh1106_clear_display(void *)'),
+    _sts: ffi('void *mgos_sh1106_set_text_size(void *, int)'),
+    _stc: ffi('void *mgos_sh1106_set_text_color(void *, int)'),
+    _sc: ffi('void *mgos_sh1106_set_cursor(void *, int, int)'),
+    _d: ffi('void *mgos_sh1106_display(void *)'),
+    
 
 
 create_i2c: function(h, w) {
