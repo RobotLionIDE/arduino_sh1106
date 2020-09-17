@@ -6,7 +6,7 @@ let Adafruit_SH1106 = {
     _stc: ffi('void *mgos_sh1106_set_text_color(void *, int)'),
     _sc: ffi('void *mgos_sh1106_set_cursor(void *, int, int)'),
     _d: ffi('void *mgos_sh1106_display(void *)'),
-    
+    _w: ffi('int mgos_sh1106_write(void *, char *, int)'),
 
 
 create_i2c: function(h, w) {
